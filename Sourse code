@@ -1,0 +1,64 @@
+import java.util.*;
+public class tictactoe {
+    public static void main(String[] args) {
+        char[][] board=new char[3][3];
+        for(int row=0;row<board.length;row++){
+            for(int col=0;col<board[row].length;col++){
+                board[row][col]=' ';
+            }
+
+        }
+        char Player='X';
+        boolean gameOver=false;
+        Scanner sc=new Scanner(System.in);
+        while (!gameOver) {
+            printBoard(board);
+            System.out.print("Player "+Player+" enter: ");
+            int row=sc.nextInt();
+            int col=sc.nextInt();
+            System.out.println();
+
+            if(board[row][col]==' '){
+                board[row][col]=Player;
+                gameOver=haveWon(board,Player);
+                if(gameOver){
+                    System.err.println("Player "+Player+" has won the match!!");
+                }
+                else{
+                    Player=(Player=='X')?'O':'X';
+                }
+            }else{
+                System.err.println("Invalid move.Try again!");
+            }
+        }
+        printBoard(board);
+        sc.close();
+    }
+    public static boolean haveWon(char[][] board,char Player){
+        for(int row=0;row<board.length;row++){
+            if(board[row][0]==Player&&board[row][1]==Player&&board[row][2]==Player){
+                return true;
+            }
+        }
+        for(int col=0;col<board[0].length;col++){
+            if(board[0][col]==Player&&board[1][col]==Player&&board[2][col]==Player){
+                return true;
+            }
+        }
+        if(board[0][0]==Player&&board[1][1]==Player&&board[2][2]==Player){
+            return true;
+        }
+        if(board[0][2]==Player&&board[1][1]==Player&&board[2][0]==Player){
+            return true;
+        }
+        return false;
+    }
+    public static void printBoard(char[][] board){
+        for(int row=0;row<board.length;row++){
+            for(int col=0;col<board[0].length;col++){
+                System.out.print(board[row][col]+" |");
+            }
+            System.err.println();
+        }
+    }
+}
